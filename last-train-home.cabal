@@ -1,0 +1,58 @@
+name:                last-train-home
+version:             0.1.0.0
+synopsis:            crappy thing that finds me routes to home
+description:         Please see README.md
+homepage:            https://github.com/justinwoo/last-train-home#readme
+license:             MIT
+license-file:        LICENSE
+author:              Justin Woo
+maintainer:          moomoowoo@gmail.com
+copyright:           2016 Justin Woo
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+                       Types
+                       Query
+  build-depends:       base >= 4.7 && < 5
+                     , aeson
+                     , transformers
+                     , bytestring
+                     , process
+                     , utf8-string
+  default-language:    Haskell2010
+
+executable last-train-home
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , last-train-home
+                     , aeson
+                     , transformers
+                     , bytestring
+                     , optparse-generic
+                     , process
+                     , utf8-string
+  default-language:    Haskell2010
+
+test-suite last-train-home-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , last-train-home
+                     , aeson
+                     , transformers
+                     , bytestring
+                     , process
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/justinwoo/last-train-home
