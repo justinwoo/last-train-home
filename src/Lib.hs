@@ -60,7 +60,7 @@ extractRoutes s = do
       let details = Details
             (Point $ name to)
             (DistanceKilometers (distance / 1000))
-            (TimeMinutes $ (et - st) `div` 1000)
+            (TimeMinutes $ (et - st) `div` 1000 `div` 60)
       let id' = case route of
             Just ItineraryLookupRoute {gtfsId = gtfsId@(GTFSId g), shortName, longName} ->
               Just $ MethodId gtfsId (fromMaybe (ShortName g) shortName) longName
