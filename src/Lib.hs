@@ -62,8 +62,8 @@ extractRoutes s = do
             (DistanceKilometers (distance / 1000))
             (TimeMinutes $ (et - st) `div` 1000 `div` 60)
       let id' = case route of
-            Just ItineraryLookupRoute {gtfsId = gtfsId@(GTFSId g), shortName, longName} ->
-              Just $ MethodId gtfsId (fromMaybe (ShortName g) shortName) longName
+            Just ItineraryLookupRoute {gtfsId, shortName, longName} ->
+              Just $ MethodId gtfsId (fromMaybe (ShortName "") shortName) longName
             Nothing -> Nothing
       Step $ case (mode, id') of
         ("WALK", _) ->
@@ -74,6 +74,8 @@ extractRoutes s = do
           Tram x details
         ("TRAIN", Just x) ->
           Train x details
+        ("SUBWAY", Just x) ->
+          Subway x details
         (_, Just x) ->
           Mystery (mode ++ ": " ++ myshow x) details
         _ ->

@@ -37,7 +37,10 @@ data MethodId = MethodId GTFSId ShortName LongName
   deriving (Eq)
 instance MyShow MethodId where
   myshow (MethodId _ (ShortName sn) (LongName ln)) =
-    sn ++ " " ++ ln
+    if null sn
+      then mempty
+      else sn ++ " "
+    ++ ln
 
 newtype DistanceKilometers = DistanceKilometers Float
 instance MyShow DistanceKilometers where
@@ -54,6 +57,7 @@ data Method
   | Bus MethodId Details
   | Tram MethodId Details
   | Train MethodId Details
+  | Subway MethodId Details
   | Mystery String Details
 
 newtype Step = Step Method
@@ -68,6 +72,8 @@ instance MyShow Step where
         "take tram " ++ myshow id ++ " to " ++ myshow details
       Train id details ->
         "take train " ++ myshow id ++ " to " ++ myshow details
+      Subway id details ->
+        "take subway " ++ myshow id ++ " to " ++ myshow details
       Mystery x details ->
         "take ??? " ++ x ++ " to " ++ myshow details
 
