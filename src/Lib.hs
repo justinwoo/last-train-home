@@ -9,6 +9,7 @@ import Data.Aeson (eitherDecode)
 import Data.ByteString.Lazy (readFile)
 import Data.ByteString.Lazy.UTF8 (fromString)
 import Data.List (sortOn, intercalate)
+import Data.Maybe (fromMaybe)
 import System.Process (readProcess)
 
 import Types
@@ -61,8 +62,8 @@ extractRoutes s = do
             (DistanceKilometers (distance / 1000))
             (TimeMinutes $ (et - st) `div` 1000)
       let id' = case route of
-            Just ItineraryLookupRoute {gtfsId, shortName, longName} ->
-              Just $ MethodId gtfsId shortName longName
+            Just ItineraryLookupRoute {gtfsId = gtfsId@(GTFSId g), shortName, longName} ->
+              Just $ MethodId gtfsId (fromMaybe (ShortName g) shortName) longName
             Nothing -> Nothing
       Step $ case (mode, id') of
         ("WALK", _) ->

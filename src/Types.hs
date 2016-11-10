@@ -125,7 +125,7 @@ data ItineraryLookupTo = ItineraryLookupTo
 
 data ItineraryLookupRoute = ItineraryLookupRoute
   { longName :: LongName
-  , shortName :: ShortName
+  , shortName :: Maybe ShortName
   , gtfsId :: GTFSId
   } deriving (Show, Generic, FromJSON)
 
